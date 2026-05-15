@@ -4,297 +4,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PharmaCare Pro – Farmaci Moderne</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f4f7ff;
-    --panel: #ffffff;
-    --panel2: #eef2ff;
-    --red: #e63946;
-    --red-dark: #c1121f;
-    --blue: #4361ee;
-    --blue-light: #4361ee;
-    --cyan: #2563eb;
-    --text: #1a2340;
-    --muted: #64748b;
-    --border: rgba(67,97,238,.12);
-    --white: #ffffff;
+  :root{
+    --bg:#f4f7ff; --panel:#ffffff; --panel2:#eef2ff;
+    --red:#e63946; --red-dark:#c1121f;
+    --blue:#4361ee; --cyan:#2563eb;
+    --text:#1a2340; --muted:#64748b;
+    --border:rgba(67,97,238,.12); --white:#ffffff;
   }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { font-family:'Outfit', sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-  /* ── NAV ── */
-  nav {
-    position:fixed; top:0; width:100%; z-index:100;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 5%;
-    background:rgba(244,247,255,.92); backdrop-filter:blur(16px); box-shadow:0 1px 0 var(--border);
-    border-bottom:1px solid var(--border);
-  }
-  .logo { display:flex; align-items:center; gap:12px; }
-  .logo-mark {
-    width:36px; height:36px; background:var(--red);
-    display:flex; align-items:center; justify-content:center;
-    font-size:16px; font-weight:700; color:var(--white);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    flex-shrink:0;
-  }
-  .logo-text { font-family:'Space Mono', monospace; font-size:15px; font-weight:700; letter-spacing:.5px; }
-  .logo-text span { color:var(--red); }
-  .nav-links { display:flex; gap:28px; }
-  .nav-links a { text-decoration:none; color:var(--muted); font-size:14px; font-weight:500; transition:color .2s; letter-spacing:.3px; }
-  .nav-links a:hover { color:var(--text); }
-  .nav-pill {
-    background:var(--red); color:var(--white); padding:10px 22px;
-    border-radius:6px; font-size:13px; font-weight:600; text-decoration:none;
-    letter-spacing:.5px; text-transform:uppercase; transition:all .2s;
-  }
-  .nav-pill:hover { background:var(--red-dark); transform:translateY(-1px); }
-  .menu-btn { display:none; background:none; border:none; cursor:pointer; font-size:22px; color:var(--text); }
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 5%;background:rgba(244,247,255,.92);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--border);border-bottom:1px solid var(--border);}
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo-mark{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--white);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);flex-shrink:0;}
+  .logo-text{font-family:'Space Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.5px;}
+  .logo-text span{color:var(--red);}
+  .nav-links{display:flex;gap:28px;}
+  .nav-links a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;transition:color .2s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-right{display:flex;align-items:center;gap:12px;}
+  .nav-pill{background:var(--red);color:var(--white);padding:10px 22px;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.5px;text-transform:uppercase;transition:all .2s;}
+  .nav-pill:hover{background:var(--red-dark);transform:translateY(-1px);}
+  /* Language toggle – style matches PharmaCare aesthetic */
+  .lang-toggle{display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;}
+  .lang-btn{padding:7px 13px;background:transparent;border:none;cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);transition:all .2s;font-family:'Outfit',sans-serif;letter-spacing:.5px;text-transform:uppercase;}
+  .lang-btn.active{background:var(--blue);color:var(--white);}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;font-size:22px;color:var(--text);}
 
-  /* ── HERO ── */
-  .hero {
-    min-height:100vh; display:grid; grid-template-columns:1fr 1fr;
-    align-items:center; padding:120px 5% 80px; gap:60px;
-    position:relative; overflow:hidden;
-  }
-  .hero::before {
-    content:''; position:absolute; inset:0;
-    background:
-      radial-gradient(ellipse 50% 80% at 80% 50%, rgba(67,97,238,.10) 0%, transparent 60%),
-      radial-gradient(ellipse 30% 40% at 10% 20%, rgba(230,57,70,.06) 0%, transparent 50%),
-      var(--bg);
-  }
-  .hero-grid-lines {
-    position:absolute; inset:0; opacity:.03;
-    background-image: linear-gradient(var(--blue) 1px, transparent 1px), linear-gradient(90deg, var(--blue) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  .hero-left { position:relative; z-index:2; }
-  .hero-tag {
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'Space Mono', monospace; font-size:11px; color:var(--cyan);
-    letter-spacing:2px; text-transform:uppercase; margin-bottom:28px;
-    animation: slideIn .6s ease both;
-  }
-  .tag-line { width:30px; height:1px; background:var(--cyan); }
-  .hero h1 {
-    font-size:clamp(36px,5.5vw,68px); font-weight:800; line-height:1.05;
-    color:var(--text); margin-bottom:24px; letter-spacing:-.5px;
-    animation: slideIn .6s .1s ease both;
-  }
-  .hero h1 .accent { color:var(--red); display:block; }
-  .hero p {
-    font-size:16px; line-height:1.8; color:var(--muted); max-width:440px;
-    margin-bottom:40px; font-weight:400;
-    animation: slideIn .6s .2s ease both;
-  }
-  .hero-btns { display:flex; gap:14px; flex-wrap:wrap; animation: slideIn .6s .3s ease both; }
-  .btn-red {
-    background:var(--red); color:var(--white); padding:15px 32px;
-    border-radius:6px; text-decoration:none; font-size:14px; font-weight:600;
-    letter-spacing:.5px; transition:all .2s; text-transform:uppercase;
-  }
-  .btn-red:hover { background:var(--red-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(230,57,70,.3); }
-  .btn-ghost {
-    background:transparent; color:var(--text); padding:15px 32px;
-    border-radius:6px; text-decoration:none; font-size:14px; font-weight:600;
-    letter-spacing:.5px; border:1.5px solid rgba(67,97,238,.3); transition:all .2s;
-    text-transform:uppercase; display:inline-flex; align-items:center; gap:8px;
-  }
-  .btn-ghost:hover { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 5% 80px;gap:60px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(67,97,238,.10) 0%,transparent 60%),radial-gradient(ellipse 30% 40% at 10% 20%,rgba(230,57,70,.06) 0%,transparent 50%),var(--bg);}
+  .hero-grid-lines{position:absolute;inset:0;opacity:.03;background-image:linear-gradient(var(--blue) 1px,transparent 1px),linear-gradient(90deg,var(--blue) 1px,transparent 1px);background-size:60px 60px;}
+  .hero-left{position:relative;z-index:2;}
+  .hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;animation:slideIn .6s ease both;}
+  .tag-line{width:30px;height:1px;background:var(--cyan);}
+  .hero h1{font-size:clamp(36px,5.5vw,68px);font-weight:800;line-height:1.05;color:var(--text);margin-bottom:24px;letter-spacing:-.5px;animation:slideIn .6s .1s ease both;}
+  .hero h1 .accent{color:var(--red);display:block;}
+  .hero p{font-size:16px;line-height:1.8;color:var(--muted);max-width:440px;margin-bottom:40px;animation:slideIn .6s .2s ease both;}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:slideIn .6s .3s ease both;}
+  .btn-red{background:var(--red);color:var(--white);padding:15px 32px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.5px;transition:all .2s;text-transform:uppercase;}
+  .btn-red:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(230,57,70,.3);}
+  .btn-ghost{background:transparent;color:var(--text);padding:15px 32px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.5px;border:1.5px solid rgba(67,97,238,.3);transition:all .2s;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
+  .hero-right{position:relative;z-index:2;animation:slideIn .6s .4s ease both;}
+  .hero-card{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:32px;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(67,97,238,.08);}
+  .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--blue),var(--cyan));}
+  .card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+  .card-badge{background:rgba(230,57,70,.10);border:1px solid rgba(230,57,70,.25);color:var(--red);font-size:11px;font-weight:600;padding:5px 12px;border-radius:4px;letter-spacing:.8px;text-transform:uppercase;}
+  .card-live{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;}
+  .dot-live{width:7px;height:7px;border-radius:50%;background:#2ecc71;animation:blink 1.5s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+  .card-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+  .cs-item{background:var(--panel2);border-radius:12px;padding:18px;}
+  .cs-num{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--text);line-height:1;}
+  .cs-num span{color:var(--red);}
+  .cs-label{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.5px;text-transform:uppercase;}
+  .card-services-list{display:flex;flex-direction:column;gap:10px;}
+  .cs-row{display:flex;align-items:center;justify-content:space-between;background:var(--panel2);border-radius:10px;padding:12px 16px;}
+  .cs-row-left{display:flex;align-items:center;gap:10px;font-size:14px;}
+  .cs-row-icon{font-size:18px;}
+  .cs-row-badge{font-size:11px;color:var(--blue);background:rgba(67,97,238,.1);border:1px solid rgba(67,97,238,.2);padding:3px 10px;border-radius:4px;font-weight:600;}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-24px);}to{opacity:1;transform:translateX(0);}}
 
-  /* HERO RIGHT – card */
-  .hero-right { position:relative; z-index:2; animation: slideIn .6s .4s ease both; }
-  .hero-card {
-    background:var(--panel); border:1px solid var(--border);
-    border-radius:20px; padding:32px; position:relative; overflow:hidden;
-  }
-  .hero-card::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:3px;
-    background:linear-gradient(90deg, var(--red), var(--blue), var(--cyan));
-  }
-  .card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
-  .card-badge { background:rgba(230,57,70,.10); border:1px solid rgba(230,57,70,.25); color:var(--red); font-size:11px; font-weight:600; padding:5px 12px; border-radius:4px; letter-spacing:.8px; text-transform:uppercase; }
-  .card-live { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:12px; }
-  .dot-live { width:7px; height:7px; border-radius:50%; background:#2ecc71; animation:blink 1.5s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
-  .card-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
-  .cs-item { background:var(--panel2); border-radius:12px; padding:18px; }
-  .cs-num { font-family:'Space Mono', monospace; font-size:26px; font-weight:700; color:var(--text); line-height:1; }
-  .cs-num span { color:var(--red); }
-  .cs-label { font-size:11px; color:var(--muted); margin-top:6px; letter-spacing:.5px; text-transform:uppercase; }
-  .card-services-list { display:flex; flex-direction:column; gap:10px; }
-  .cs-row {
-    display:flex; align-items:center; justify-content:space-between;
-    background:var(--panel2); border-radius:10px; padding:12px 16px;
-  }
-  .cs-row-left { display:flex; align-items:center; gap:10px; font-size:14px; }
-  .cs-row-icon { font-size:18px; }
-  .cs-row-badge { font-size:11px; color:var(--blue); background:rgba(67,97,238,.1); border:1px solid rgba(67,97,238,.2); padding:3px 10px; border-radius:4px; font-weight:600; }
+  /* TICKER */
+  .ticker{background:var(--red);overflow:hidden;padding:10px 0;white-space:nowrap;}
+  .ticker-inner{display:inline-flex;animation:scroll 25s linear infinite;}
+  .ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 32px;font-size:13px;font-weight:600;color:var(--white);letter-spacing:.8px;text-transform:uppercase;}
+  .ticker-sep{color:rgba(255,255,255,.4);font-size:16px;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-  @keyframes slideIn { from { opacity:0; transform:translateX(-24px); } to { opacity:1; transform:translateX(0); } }
+  /* FEATURES */
+  .features{padding:100px 5%;background:var(--bg);}
+  .features-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;gap:30px;flex-wrap:wrap;}
+  .features-header h2{font-size:clamp(28px,4vw,46px);font-weight:800;color:var(--text);line-height:1.1;max-width:400px;}
+  .features-header h2 em{color:var(--red);font-style:normal;}
+  .features-header p{max-width:340px;color:var(--muted);font-size:14px;line-height:1.8;}
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .feat-card{background:var(--panel);padding:36px 30px;position:relative;overflow:hidden;transition:background .2s,box-shadow .2s;cursor:default;box-shadow:0 1px 0 var(--border);}
+  .feat-card:hover{background:var(--panel2);box-shadow:0 4px 20px rgba(67,97,238,.08);}
+  .feat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--blue));transform:scaleX(0);transition:transform .3s;}
+  .feat-card:hover::after{transform:scaleX(1);}
+  .feat-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--red);letter-spacing:2px;margin-bottom:20px;}
+  .feat-icon{font-size:30px;margin-bottom:16px;}
+  .feat-card h3{font-size:18px;font-weight:700;color:var(--text);margin-bottom:10px;}
+  .feat-card p{font-size:13px;color:var(--muted);line-height:1.8;}
 
-  /* ── TICKER ── */
-  .ticker { background:var(--red); overflow:hidden; padding:10px 0; white-space:nowrap; }
-  .ticker-inner { display:inline-flex; gap:0; animation:scroll 25s linear infinite; }
-  .ticker-item { display:inline-flex; align-items:center; gap:8px; padding:0 32px; font-size:13px; font-weight:600; color:var(--white); letter-spacing:.8px; text-transform:uppercase; }
-  .ticker-sep { color:rgba(255,255,255,.4); font-size:16px; }
-  @keyframes scroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  /* CONTACT */
+  .contact{padding:100px 5%;background:var(--panel2);}
+  .contact-wrap{max-width:1000px;margin:0 auto;}
+  .contact-top{text-align:center;margin-bottom:60px;}
+  .contact-tag{font-family:'Space Mono',monospace;font-size:11px;color:var(--red);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:14px;}
+  .contact-top h2{font-size:clamp(28px,4vw,46px);font-weight:800;color:var(--text);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
+  .cg-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:28px 24px;text-align:center;transition:all .2s;cursor:pointer;text-decoration:none;color:inherit;display:block;box-shadow:0 2px 12px rgba(67,97,238,.06);}
+  .cg-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 8px 24px rgba(230,57,70,.12);}
+  .cg-icon{font-size:32px;margin-bottom:14px;}
+  .cg-card h4{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+  .cg-card p{font-size:13px;color:var(--muted);line-height:1.6;}
+  .wa-section{background:linear-gradient(135deg,#075e54 0%,#128c7e 100%);border-radius:14px;padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+  .wa-section-left h3{font-size:22px;font-weight:700;color:var(--white);margin-bottom:6px;}
+  .wa-section-left p{color:rgba(255,255,255,.7);font-size:14px;}
+  .btn-wa-hero{background:var(--white);color:#128c7e;padding:14px 30px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s;}
+  .btn-wa-hero:hover{transform:scale(1.04);box-shadow:0 6px 24px rgba(255,255,255,.2);}
 
-  /* ── FEATURES ── */
-  .features { padding:100px 5%; background:var(--bg); }
-  .features-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:60px; gap:30px; flex-wrap:wrap; }
-  .features-header h2 { font-size:clamp(28px,4vw,46px); font-weight:800; color:var(--text); line-height:1.1; max-width:400px; }
-  .features-header h2 em { color:var(--red); font-style:normal; }
-  .features-header p { max-width:340px; color:var(--muted); font-size:14px; line-height:1.8; }
-  .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-  .feat-card {
-    background:var(--panel); padding:36px 30px; position:relative; overflow:hidden;
-    transition:background .2s, box-shadow .2s; cursor:default;
-    box-shadow:0 1px 0 var(--border);
-  }
-  .feat-card:hover { background:var(--panel2); box-shadow:0 4px 20px rgba(67,97,238,.08); }
-  .feat-card::after {
-    content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
-    background:linear-gradient(90deg, var(--red), var(--blue));
-    transform:scaleX(0); transition:transform .3s;
-  }
-  .feat-card:hover::after { transform:scaleX(1); }
-  .feat-num { font-family:'Space Mono', monospace; font-size:11px; color:var(--red); letter-spacing:2px; margin-bottom:20px; }
-  .feat-icon { font-size:30px; margin-bottom:16px; }
-  .feat-card h3 { font-size:18px; font-weight:700; color:var(--text); margin-bottom:10px; }
-  .feat-card p { font-size:13px; color:var(--muted); line-height:1.8; }
+  /* HOURS */
+  .hours{padding:80px 5%;background:var(--bg);}
+  .hours-wrap{max-width:700px;margin:0 auto;}
+  .hours-wrap h2{font-size:32px;font-weight:800;color:var(--text);margin-bottom:30px;text-align:center;}
+  .hours-table{border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .h-row{display:flex;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--border);font-size:15px;background:var(--panel);transition:background .2s;}
+  .h-row:last-child{border:none;}
+  .h-row:hover{background:var(--panel2);}
+  .h-day{color:var(--muted);font-weight:500;}
+  .h-time{color:var(--text);font-family:'Space Mono',monospace;font-size:13px;}
+  .h-open{color:#16a34a;}
+  .h-closed{color:var(--red);}
 
-  /* ── CONTACT ── */
-  .contact { padding:100px 5%; background:var(--panel2); }
-  .contact-wrap { max-width:1000px; margin:0 auto; }
-  .contact-top { text-align:center; margin-bottom:60px; }
-  .contact-tag { font-family:'Space Mono', monospace; font-size:11px; color:var(--red); letter-spacing:2px; text-transform:uppercase; display:block; margin-bottom:14px; }
-  .contact-top h2 { font-size:clamp(28px,4vw,46px); font-weight:800; color:var(--text); }
-  .contact-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:24px; }
-  .cg-card {
-    background:var(--panel); border:1px solid var(--border);
-    border-radius:14px; padding:28px 24px; text-align:center;
-    transition:all .2s; cursor:pointer; text-decoration:none; color:inherit; display:block;
-    box-shadow:0 2px 12px rgba(67,97,238,.06);
-  }
-  .cg-card:hover { border-color:var(--red); transform:translateY(-4px); box-shadow:0 8px 24px rgba(230,57,70,.12); }
-  .cg-icon { font-size:32px; margin-bottom:14px; }
-  .cg-card h4 { font-size:15px; font-weight:600; color:var(--text); margin-bottom:6px; }
-  .cg-card p { font-size:13px; color:var(--muted); line-height:1.6; }
-  .wa-section {
-    background:linear-gradient(135deg, #075e54 0%, #128c7e 100%);
-    border-radius:14px; padding:32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;
-  }
-  .wa-section-left h3 { font-size:22px; font-weight:700; color:var(--white); margin-bottom:6px; }
-  .wa-section-left p { color:rgba(255,255,255,.7); font-size:14px; }
-  .btn-wa-hero {
-    background:var(--white); color:#128c7e; padding:14px 30px;
-    border-radius:8px; font-size:14px; font-weight:700;
-    text-decoration:none; display:inline-flex; align-items:center; gap:10px;
-    transition:all .2s; letter-spacing:.3px;
-  }
-  .btn-wa-hero:hover { transform:scale(1.04); box-shadow:0 6px 24px rgba(255,255,255,.2); }
-
-  /* ── HOURS ── */
-  .hours { padding:80px 5%; background:var(--bg); }
-  .hours-wrap { max-width:700px; margin:0 auto; }
-  .hours-wrap h2 { font-size:32px; font-weight:800; color:var(--text); margin-bottom:30px; text-align:center; }
-  .hours-table { border:1px solid var(--border); border-radius:14px; overflow:hidden; }
-  .h-row { display:flex; justify-content:space-between; padding:16px 28px; border-bottom:1px solid var(--border); font-size:15px; background:var(--panel); transition:background .2s; }
-  .h-row:last-child { border:none; }
-  .h-row:hover { background:var(--panel2); }
-  .h-day { color:var(--muted); font-weight:500; }
-  .h-time { color:var(--text); font-family:'Space Mono', monospace; font-size:13px; }
-  .h-open { color:#2ecc71; }
-  .h-closed { color:var(--red); }
-
-  /* ── FOOTER ── */
-  footer {
-    background:var(--panel2); border-top:1px solid var(--border);
-    padding:30px 5%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
-  }
-  footer .f-logo { display:flex; align-items:center; gap:10px; }
-  footer .f-logo span { font-family:'Space Mono', monospace; font-size:13px; color:var(--muted); }
-  footer .f-logo span em { color:var(--red); font-style:normal; }
-  footer p { font-size:12px; color:var(--muted); }
+  /* FOOTER */
+  footer{background:var(--panel2);border-top:1px solid var(--border);padding:30px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  footer .f-logo{display:flex;align-items:center;gap:10px;}
+  footer .f-logo span{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);}
+  footer .f-logo span em{color:var(--red);font-style:normal;}
+  footer p{font-size:12px;color:var(--muted);}
 
   /* FLOAT WA */
-  .wa-float {
-    position:fixed; bottom:26px; right:26px; z-index:200;
-    width:56px; height:56px; background:#25D366; border-radius:14px;
-    display:flex; align-items:center; justify-content:center; font-size:26px;
-    text-decoration:none; box-shadow:0 4px 20px rgba(37,211,102,.35);
-    transition:all .2s;
-  }
-  .wa-float:hover { transform:scale(1.1) rotate(-5deg); }
+  .wa-float{position:fixed;bottom:26px;right:26px;z-index:200;width:56px;height:56px;background:#25D366;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:all .2s;}
+  .wa-float:hover{transform:scale(1.1) rotate(-5deg);}
 
   /* MOBILE */
   @media(max-width:768px){
-    .nav-links, .nav-pill { display:none; }
-    .menu-btn { display:block; }
-    .hero { grid-template-columns:1fr; padding:100px 5% 60px; gap:40px; }
-    .hero-right { display:none; }
-    .features-grid { grid-template-columns:1fr; gap:2px; }
-    .contact-grid { grid-template-columns:1fr; }
-    .features-header { flex-direction:column; }
-    footer { flex-direction:column; text-align:center; }
-  }
-  @media(max-width:480px){
-    .card-stats { grid-template-columns:1fr 1fr; }
+    .nav-links,.nav-pill{display:none;}
+    .menu-btn{display:block;}
+    .hero{grid-template-columns:1fr;padding:100px 5% 60px;gap:40px;}
+    .hero-right{display:none;}
+    .features-grid{grid-template-columns:1fr;gap:2px;}
+    .contact-grid{grid-template-columns:1fr;}
+    .features-header{flex-direction:column;}
+    footer{flex-direction:column;text-align:center;}
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">
     <div class="logo-mark">Rx</div>
     <div class="logo-text">Pharma<span>Care</span>&nbsp;Pro</div>
   </div>
   <div class="nav-links">
-    <a href="#sherbimet">Shërbime</a>
-    <a href="#kontakt">Kontakt</a>
-    <a href="#orari">Orari</a>
+    <a href="#sherbimet" data-al="Shërbime" data-en="Services">Shërbime</a>
+    <a href="#kontakt" data-al="Kontakt" data-en="Contact">Kontakt</a>
+    <a href="#orari" data-al="Orari" data-en="Hours">Orari</a>
   </div>
-  <a href="https://wa.me/355XXXXXXXX" class="nav-pill" target="_blank">💬 WhatsApp</a>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('al',this)">🇦🇱 AL</button>
+      <button class="lang-btn" onclick="setLang('en',this)">🇬🇧 EN</button>
+    </div>
+    <a href="https://wa.me/355XXXXXXXX" class="nav-pill" target="_blank">💬 WhatsApp</a>
+  </div>
   <button class="menu-btn">☰</button>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-grid-lines"></div>
   <div class="hero-left">
-    <div class="hero-tag"><span class="tag-line"></span>Farmaci e Certifikuar</div>
+    <div class="hero-tag"><span class="tag-line"></span><span data-al="Farmaci e Certifikuar" data-en="Certified Pharmacy">Farmaci e Certifikuar</span></div>
     <h1>
-      Farmacia juaj
-      <span class="accent">moderne &amp; profesionale.</span>
+      <span data-al="Farmacia juaj" data-en="Your pharmacy">Farmacia juaj</span>
+      <span class="accent" data-al="moderne & profesionale." data-en="modern & professional.">moderne & profesionale.</span>
     </h1>
-    <p>PharmaCare Pro – ku teknologjia takon kujdesin shëndetësor. Ilaçe origjinale, ekip ekspert, shërbim 24/7 nëpërmjet WhatsApp.</p>
+    <p data-al="PharmaCare Pro – ku teknologjia takon kujdesin shëndetësor. Ilaçe origjinale, ekip ekspert, shërbim 24/7 nëpërmjet WhatsApp."
+       data-en="PharmaCare Pro – where technology meets healthcare. Original medicines, expert team, 24/7 service via WhatsApp.">
+      PharmaCare Pro – ku teknologjia takon kujdesin shëndetësor. Ilaçe origjinale, ekip ekspert, shërbim 24/7 nëpërmjet WhatsApp.
+    </p>
     <div class="hero-btns">
-      <a href="#kontakt" class="btn-red">Porosit Tani</a>
-      <a href="https://wa.me/355XXXXXXXX" class="btn-ghost" target="_blank">💬 Na shkruani</a>
+      <a href="#kontakt" class="btn-red" data-al="Porosit Tani" data-en="Order Now">Porosit Tani</a>
+      <a href="https://wa.me/355XXXXXXXX" class="btn-ghost" target="_blank" data-al="💬 Na shkruani" data-en="💬 Message us">💬 Na shkruani</a>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-card">
       <div class="card-top">
         <span class="card-badge">Live</span>
-        <span class="card-live"><span class="dot-live"></span>Online tani</span>
+        <span class="card-live"><span class="dot-live"></span><span data-al="Online tani" data-en="Online now">Online tani</span></span>
       </div>
       <div class="card-stats">
-        <div class="cs-item"><div class="cs-num">5<span>k+</span></div><div class="cs-label">Produkte</div></div>
-        <div class="cs-item"><div class="cs-num">15<span>yr</span></div><div class="cs-label">Eksperiencë</div></div>
-        <div class="cs-item"><div class="cs-num">24<span>/7</span></div><div class="cs-label">Disponibël</div></div>
-        <div class="cs-item"><div class="cs-num">98<span>%</span></div><div class="cs-label">Kënaqësi</div></div>
+        <div class="cs-item"><div class="cs-num">5<span>k+</span></div><div class="cs-label" data-al="Produkte" data-en="Products">Produkte</div></div>
+        <div class="cs-item"><div class="cs-num">15<span>yr</span></div><div class="cs-label" data-al="Eksperiencë" data-en="Experience">Eksperiencë</div></div>
+        <div class="cs-item"><div class="cs-num">24<span>/7</span></div><div class="cs-label" data-al="Disponibël" data-en="Available">Disponibël</div></div>
+        <div class="cs-item"><div class="cs-num">98<span>%</span></div><div class="cs-label" data-al="Kënaqësi" data-en="Satisfaction">Kënaqësi</div></div>
       </div>
       <div class="card-services-list">
-        <div class="cs-row"><div class="cs-row-left"><span class="cs-row-icon">💊</span> Ilaçe me Recetë</div><span class="cs-row-badge">✓ Stok</span></div>
-        <div class="cs-row"><div class="cs-row-left"><span class="cs-row-icon">🚚</span> Dërgesa në Shtëpi</div><span class="cs-row-badge">Falas</span></div>
-        <div class="cs-row"><div class="cs-row-left"><span class="cs-row-icon">🌿</span> Produkte Bio</div><span class="cs-row-badge">I ri</span></div>
+        <div class="cs-row"><div class="cs-row-left"><span class="cs-row-icon">💊</span><span data-al="Ilaçe me Recetë" data-en="Prescription Medicines">Ilaçe me Recetë</span></div><span class="cs-row-badge" data-al="✓ Stok" data-en="✓ In Stock">✓ Stok</span></div>
+        <div class="cs-row"><div class="cs-row-left"><span class="cs-row-icon">🚚</span><span data-al="Dërgesa në Shtëpi" data-en="Home Delivery">Dërgesa në Shtëpi</span></div><span class="cs-row-badge" data-al="Falas" data-en="Free">Falas</span></div>
+        <div class="cs-row"><div class="cs-row-left"><span class="cs-row-icon">🌿</span><span data-al="Produkte Bio" data-en="Bio Products">Produkte Bio</span></div><span class="cs-row-badge" data-al="I ri" data-en="New">I ri</span></div>
       </div>
     </div>
   </div>
@@ -302,84 +210,92 @@
 
 <!-- TICKER -->
 <div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">💊 Ilaçe Origjinale <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">🚚 Dërgesa Brenda Qytetit <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">🌿 Produkte Natyrale <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">👨‍⚕️ Farmacistë Ekspertë <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">💬 WhatsApp 24/7 <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">🧴 Kozmetikë & Kujdes <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">💊 Ilaçe Origjinale <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">🚚 Dërgesa Brenda Qytetit <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">🌿 Produkte Natyrale <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">👨‍⚕️ Farmacistë Ekspertë <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">💬 WhatsApp 24/7 <span class="ticker-sep">·</span></span>
-    <span class="ticker-item">🧴 Kozmetikë & Kujdes <span class="ticker-sep">·</span></span>
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item" data-al="💊 Ilaçe Origjinale" data-en="💊 Original Medicines">💊 Ilaçe Origjinale <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="🚚 Dërgesa Brenda Qytetit" data-en="🚚 City-wide Delivery">🚚 Dërgesa Brenda Qytetit <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="🌿 Produkte Natyrale" data-en="🌿 Natural Products">🌿 Produkte Natyrale <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="👨‍⚕️ Farmacistë Ekspertë" data-en="👨‍⚕️ Expert Pharmacists">👨‍⚕️ Farmacistë Ekspertë <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="💬 WhatsApp 24/7" data-en="💬 WhatsApp 24/7">💬 WhatsApp 24/7 <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="🧴 Kozmetikë & Kujdes" data-en="🧴 Cosmetics & Care">🧴 Kozmetikë & Kujdes <span class="ticker-sep">·</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item" data-al="💊 Ilaçe Origjinale" data-en="💊 Original Medicines">💊 Ilaçe Origjinale <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="🚚 Dërgesa Brenda Qytetit" data-en="🚚 City-wide Delivery">🚚 Dërgesa Brenda Qytetit <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="🌿 Produkte Natyrale" data-en="🌿 Natural Products">🌿 Produkte Natyrale <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="👨‍⚕️ Farmacistë Ekspertë" data-en="👨‍⚕️ Expert Pharmacists">👨‍⚕️ Farmacistë Ekspertë <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="💬 WhatsApp 24/7" data-en="💬 WhatsApp 24/7">💬 WhatsApp 24/7 <span class="ticker-sep">·</span></span>
+    <span class="ticker-item" data-al="🧴 Kozmetikë & Kujdes" data-en="🧴 Cosmetics & Care">🧴 Kozmetikë & Kujdes <span class="ticker-sep">·</span></span>
   </div>
 </div>
 
-<!-- FEATURES -->
 <section class="features" id="sherbimet">
   <div class="features-header">
-    <h2>Çfarë na bën <em>ndryshe</em></h2>
-    <p>Ofrojmë shërbime farmaceutike të nivelit të lartë me teknologji moderne dhe ekip profesional.</p>
+    <h2><span data-al="Çfarë na bën" data-en="What makes us">Çfarë na bën</span> <em data-al="ndryshe" data-en="different">ndryshe</em></h2>
+    <p data-al="Ofrojmë shërbime farmaceutike të nivelit të lartë me teknologji moderne dhe ekip profesional."
+       data-en="We offer high-level pharmaceutical services with modern technology and a professional team.">
+      Ofrojmë shërbime farmaceutike të nivelit të lartë me teknologji moderne dhe ekip profesional.
+    </p>
   </div>
   <div class="features-grid">
     <div class="feat-card">
       <div class="feat-num">01</div>
       <div class="feat-icon">💊</div>
-      <h3>Receta Elektronike</h3>
-      <p>Dërgoni recetën tuaj mjekësore nëpërmjet WhatsApp dhe ne e përgatisim brenda minutave.</p>
+      <h3 data-al="Receta Elektronike" data-en="Digital Prescriptions">Receta Elektronike</h3>
+      <p data-al="Dërgoni recetën tuaj mjekësore nëpërmjet WhatsApp dhe ne e përgatisim brenda minutave."
+         data-en="Send your medical prescription via WhatsApp and we prepare it within minutes.">Dërgoni recetën tuaj mjekësore nëpërmjet WhatsApp dhe ne e përgatisim brenda minutave.</p>
     </div>
     <div class="feat-card">
       <div class="feat-num">02</div>
       <div class="feat-icon">🚚</div>
-      <h3>Dërgesa Falas</h3>
-      <p>Ofrojmë dërgesë falas për porosi mbi 1500 lekë brenda zonës qendrore të qytetit.</p>
+      <h3 data-al="Dërgesa Falas" data-en="Free Delivery">Dërgesa Falas</h3>
+      <p data-al="Ofrojmë dërgesë falas për porosi mbi 1500 lekë brenda zonës qendrore të qytetit."
+         data-en="We offer free delivery for orders above 1500 ALL within the city centre area.">Ofrojmë dërgesë falas për porosi mbi 1500 lekë brenda zonës qendrore të qytetit.</p>
     </div>
     <div class="feat-card">
       <div class="feat-num">03</div>
       <div class="feat-icon">🤝</div>
-      <h3>Këshilla Falas</h3>
-      <p>Farmacistët tanë ju ofrojnë konsultim falas dhe rekomandime të personalizuara.</p>
+      <h3 data-al="Këshilla Falas" data-en="Free Consultation">Këshilla Falas</h3>
+      <p data-al="Farmacistët tanë ju ofrojnë konsultim falas dhe rekomandime të personalizuara."
+         data-en="Our pharmacists provide free consultation and personalised recommendations.">Farmacistët tanë ju ofrojnë konsultim falas dhe rekomandime të personalizuara.</p>
     </div>
     <div class="feat-card">
       <div class="feat-num">04</div>
       <div class="feat-icon">🌿</div>
-      <h3>Produkte Bio & Naturale</h3>
-      <p>Seksion i gjerë me produkte organike, suplemente dhe alternativa natyrale.</p>
+      <h3 data-al="Produkte Bio & Naturale" data-en="Bio & Natural Products">Produkte Bio & Naturale</h3>
+      <p data-al="Seksion i gjerë me produkte organike, suplemente dhe alternativa natyrale."
+         data-en="A wide section with organic products, supplements and natural alternatives.">Seksion i gjerë me produkte organike, suplemente dhe alternativa natyrale.</p>
     </div>
     <div class="feat-card">
       <div class="feat-num">05</div>
       <div class="feat-icon">🧴</div>
-      <h3>Dermokozmetikë</h3>
-      <p>Markat kryesore ndërkombëtare: La Roche-Posay, Vichy, Eucerin dhe shumë të tjera.</p>
+      <h3 data-al="Dermokozmetikë" data-en="Dermocosmetics">Dermokozmetikë</h3>
+      <p data-al="Markat kryesore ndërkombëtare: La Roche-Posay, Vichy, Eucerin dhe shumë të tjera."
+         data-en="Top international brands: La Roche-Posay, Vichy, Eucerin and many more.">Markat kryesore ndërkombëtare: La Roche-Posay, Vichy, Eucerin dhe shumë të tjera.</p>
     </div>
     <div class="feat-card">
       <div class="feat-num">06</div>
       <div class="feat-icon">👶</div>
-      <h3>Pediatri & Nëna</h3>
-      <p>Produkte specifike për fëmijë dhe nëna, duke garantuar sigurinë dhe cilësinë.</p>
+      <h3 data-al="Pediatri & Nëna" data-en="Paediatrics & Mother">Pediatri & Nëna</h3>
+      <p data-al="Produkte specifike për fëmijë dhe nëna, duke garantuar sigurinë dhe cilësinë."
+         data-en="Specific products for children and mothers, guaranteeing safety and quality.">Produkte specifike për fëmijë dhe nëna, duke garantuar sigurinë dhe cilësinë.</p>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact" id="kontakt">
   <div class="contact-wrap">
     <div class="contact-top">
-      <span class="contact-tag">— Na Gjeni —</span>
-      <h2>Na Kontaktoni</h2>
+      <span class="contact-tag" data-al="— Na Gjeni —" data-en="— Find Us —">— Na Gjeni —</span>
+      <h2 data-al="Na Kontaktoni" data-en="Contact Us">Na Kontaktoni</h2>
     </div>
     <div class="contact-grid">
       <a href="tel:+355XXXXXXXXX" class="cg-card">
         <div class="cg-icon">📞</div>
-        <h4>Telefon</h4>
+        <h4 data-al="Telefon" data-en="Phone">Telefon</h4>
         <p>+355 69 XXX XXXX</p>
       </a>
       <a href="https://maps.google.com" class="cg-card" target="_blank">
         <div class="cg-icon">📍</div>
-        <h4>Adresa</h4>
+        <h4 data-al="Adresa" data-en="Address">Adresa</h4>
         <p>Bulevardi Bajram Curri<br>Tiranë</p>
       </a>
       <a href="mailto:info@pharmacarepro.al" class="cg-card">
@@ -390,43 +306,61 @@
     </div>
     <div class="wa-section">
       <div class="wa-section-left">
-        <h3>💬 Na shkruani në WhatsApp</h3>
-        <p>Përgjigje të shpejtë • Porosit ilaçet tuaja • Këshilla falas</p>
+        <h3 data-al="💬 Na shkruani në WhatsApp" data-en="💬 Message us on WhatsApp">💬 Na shkruani në WhatsApp</h3>
+        <p data-al="Përgjigje të shpejtë • Porosit ilaçet tuaja • Këshilla falas"
+           data-en="Fast replies • Order your medicines • Free advice">Përgjigje të shpejtë • Porosit ilaçet tuaja • Këshilla falas</p>
       </div>
-      <a href="https://wa.me/355XXXXXXXX" class="btn-wa-hero" target="_blank">
-        <span>💬</span> Fillo chat tani
-      </a>
+      <a href="https://wa.me/355XXXXXXXX" class="btn-wa-hero" target="_blank" data-al="💬 Fillo chat tani" data-en="💬 Start chat now">💬 Fillo chat tani</a>
     </div>
   </div>
 </section>
 
-<!-- HOURS -->
 <section class="hours" id="orari">
   <div class="hours-wrap">
-    <h2>⏰ Orari i Punës</h2>
+    <h2 data-al="⏰ Orari i Punës" data-en="⏰ Opening Hours">⏰ Orari i Punës</h2>
     <div class="hours-table">
-      <div class="h-row"><span class="h-day">E Hënë</span><span class="h-time h-open">08:00 – 21:00</span></div>
-      <div class="h-row"><span class="h-day">E Martë</span><span class="h-time h-open">08:00 – 21:00</span></div>
-      <div class="h-row"><span class="h-day">E Mërkurë</span><span class="h-time h-open">08:00 – 21:00</span></div>
-      <div class="h-row"><span class="h-day">E Enjte</span><span class="h-time h-open">08:00 – 21:00</span></div>
-      <div class="h-row"><span class="h-day">E Premte</span><span class="h-time h-open">08:00 – 21:00</span></div>
-      <div class="h-row"><span class="h-day">E Shtunë</span><span class="h-time h-open">09:00 – 19:00</span></div>
-      <div class="h-row"><span class="h-day">E Diel</span><span class="h-time h-closed">Mbyllur</span></div>
+      <div class="h-row"><span class="h-day" data-al="E Hënë" data-en="Monday">E Hënë</span><span class="h-time h-open">08:00 – 21:00</span></div>
+      <div class="h-row"><span class="h-day" data-al="E Martë" data-en="Tuesday">E Martë</span><span class="h-time h-open">08:00 – 21:00</span></div>
+      <div class="h-row"><span class="h-day" data-al="E Mërkurë" data-en="Wednesday">E Mërkurë</span><span class="h-time h-open">08:00 – 21:00</span></div>
+      <div class="h-row"><span class="h-day" data-al="E Enjte" data-en="Thursday">E Enjte</span><span class="h-time h-open">08:00 – 21:00</span></div>
+      <div class="h-row"><span class="h-day" data-al="E Premte" data-en="Friday">E Premte</span><span class="h-time h-open">08:00 – 21:00</span></div>
+      <div class="h-row"><span class="h-day" data-al="E Shtunë" data-en="Saturday">E Shtunë</span><span class="h-time h-open">09:00 – 19:00</span></div>
+      <div class="h-row"><span class="h-day" data-al="E Diel" data-en="Sunday">E Diel</span><span class="h-time h-closed" data-al="Mbyllur" data-en="Closed">Mbyllur</span></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="f-logo">
     <div class="logo-mark" style="width:28px;height:28px;font-size:12px;">Rx</div>
     <span>Pharma<em>Care</em> Pro</span>
   </div>
-  <p>© 2025 PharmaCare Pro · Tiranë, Shqipëri</p>
+  <p>© 2025 PharmaCare Pro · <span data-al="Tiranë, Shqipëri" data-en="Tirana, Albania">Tiranë, Shqipëri</span></p>
 </footer>
 
-<!-- FLOAT WA -->
-<a href="https://wa.me/355XXXXXXXX" class="wa-float" target="_blank" title="WhatsApp">💬</a>
+<a href="https://wa.me/355XXXXXXXX" class="wa-float" target="_blank">💬</a>
 
+<script>
+function setLang(lang, btn) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.querySelectorAll('[data-al]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val == null) return;
+    // Use innerHTML only for elements that may have tags
+    if (val.includes('<') || el.tagName === 'H1') {
+      el.innerHTML = val;
+    } else {
+      el.textContent = val;
+    }
+  });
+
+  document.documentElement.lang = lang === 'al' ? 'sq' : 'en';
+  document.title = lang === 'al'
+    ? 'PharmaCare Pro – Farmaci Moderne'
+    : 'PharmaCare Pro – Modern Pharmacy';
+}
+</script>
 </body>
 </html>
